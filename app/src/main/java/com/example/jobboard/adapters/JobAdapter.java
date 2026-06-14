@@ -1,13 +1,17 @@
 package com.example.jobboard.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.jobboard.DetailActivity;
 import com.example.jobboard.R;
 import com.example.jobboard.models.JobOffer;
 
@@ -61,12 +65,14 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         private TextView titleTextView;
         private TextView companyTextView;
         private TextView locationTextView;
+        private Button detailsButton;
 
         public JobViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.job_title);
             companyTextView = itemView.findViewById(R.id.job_company);
             locationTextView = itemView.findViewById(R.id.job_location);
+            detailsButton = itemView.findViewById(R.id.details_button);
         }
 
         public void bind(JobOffer jobOffer, OnJobClickListener listener) {
@@ -74,7 +80,34 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
             companyTextView.setText("Entreprise: " + jobOffer.getCompany());
             locationTextView.setText("Localisation: " + jobOffer.getLocation());
 
+            // Intent explicite pour ouvrir DetailActivity via le bouton
+            detailsButton.setOnClickListener(v -> {
+                Context context = itemView.getContext();
+                Intent intent = new Intent(context, DetailActivity.class);
+
+                // Passer le titre via Intent
+                intent.putExtra("job_title", jobOffer.getTitle());
+                intent.putExtra("job_company", jobOffer.getCompany());
+                intent.putExtra("job_id", jobOffer.getId());
+
+                context.startActivity(intent);
+
+                if (listener != null) {
+                    listener.onJobClick(jobOffer);
+                }
+            });
+
+            // Clic sur la card entière
             itemView.setOnClickListener(v -> {
+                Context context = itemView.getContext();
+                Intent intent = new Intent(context, DetailActivity.class);
+
+                intent.putExtra("job_title", jobOffer.getTitle());
+                intent.putExtra("job_company", jobOffer.getCompany());
+                intent.putExtra("job_id", jobOffer.getId());
+
+                context.startActivity(intent);
+
                 if (listener != null) {
                     listener.onJobClick(jobOffer);
                 }

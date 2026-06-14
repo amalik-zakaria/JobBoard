@@ -77,14 +77,18 @@
             android:gravity="end">
 
             <Button
+                android:id="@+id/details_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Voir Détails"
-                android:textSize="12sp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp" />
+                android:text="➜ Voir Détails"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@android:color/holo_blue_light"
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
 
