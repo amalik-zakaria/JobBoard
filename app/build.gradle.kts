@@ -41,6 +41,9 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
 
+    // Fragment
+    implementation(libs.fragment)
+
     // RecyclerView
     implementation(libs.recyclerview)
 

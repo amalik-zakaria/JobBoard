@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_offres"
+        android:icon="@drawable/ic_offres"
+        android:title="@string/nav_offres" />
+    <item
+        android:id="@+id/nav_candidatures"
+        android:icon="@drawable/ic_candidatures"
+        android:title="@string/nav_candidatures" />
+    <item
+        android:id="@+id/nav_preferences"
+        android:icon="@drawable/ic_preferences"
+        android:title="@string/nav_preferences" />
+</menu>
+

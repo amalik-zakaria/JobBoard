@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">JobBoard</string>
+    <string name="nav_offres">Offres</string>
+    <string name="nav_candidatures">Candidatures</string>
+    <string name="nav_preferences">Préférences</string>
+    <string name="search_keyword_hint">Mot-clé de recherche</string>
+    <string name="save_button">Sauvegarder</string>
 </resources>
