@@ -12,6 +12,7 @@ retrofit = "2.11.0"
 gson = "2.10.1"
 playServicesMaps = "19.2.0"
 fragment = "1.7.0"
+cardview = "1.0.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -27,6 +28,7 @@ retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", ver
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 fragment = { group = "androidx.fragment", name = "fragment", version.ref = "fragment" }
+cardview = { group = "androidx.cardview", name = "cardview", version.ref = "cardview" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

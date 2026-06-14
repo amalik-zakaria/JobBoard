@@ -47,6 +47,9 @@ dependencies {
     // RecyclerView
     implementation(libs.recyclerview)
 
+    // CardView
+    implementation(libs.cardview)
+
     // Retrofit 2 avec Gson
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
