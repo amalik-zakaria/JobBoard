@@ -14,6 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.jobboard.fragments.OffresFragment;
 import com.example.jobboard.fragments.CandidaturesFragment;
 import com.example.jobboard.fragments.PreferencesFragment;
+import com.example.jobboard.utils.NotificationHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        // Créer le canal de notifications (Android 8+)
+        NotificationHelper.createNotificationChannel(this);
 
         // Afficher le fragment Offres par défaut
         if (savedInstanceState == null) {
