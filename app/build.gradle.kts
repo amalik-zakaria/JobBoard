@@ -40,6 +40,19 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+
+    // RecyclerView
+    implementation(libs.recyclerview)
+
+    // Retrofit 2 avec Gson
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+    implementation(libs.gson)
+
+    // Google Maps SDK
+    implementation(libs.play.services.maps)
+
+    // Test dependencies
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
