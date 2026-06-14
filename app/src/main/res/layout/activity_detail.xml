@@ -94,6 +94,18 @@
 
     </androidx.cardview.widget.CardView>
 
+    <!-- Bouton Postuler (pleine largeur) -->
+    <Button
+        android:id="@+id/apply_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="✅ Postuler à cette offre"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:background="#E53935"
+        android:layout_marginBottom="16dp" />
+
     <!-- Bouton Appeler -->
     <LinearLayout
         android:layout_width="match_parent"

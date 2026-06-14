@@ -81,37 +81,20 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
             locationTextView.setText("Localisation: " + jobOffer.getLocation());
 
             // Intent explicite pour ouvrir DetailActivity via le bouton
-            detailsButton.setOnClickListener(v -> {
-                Context context = itemView.getContext();
-                Intent intent = new Intent(context, DetailActivity.class);
-
-                // Passer le titre via Intent
-                intent.putExtra("job_title", jobOffer.getTitle());
-                intent.putExtra("job_company", jobOffer.getCompany());
-                intent.putExtra("job_id", jobOffer.getId());
-
-                context.startActivity(intent);
-
-                if (listener != null) {
-                    listener.onJobClick(jobOffer);
-                }
-            });
+            detailsButton.setOnClickListener(v -> openDetail(itemView.getContext(), jobOffer, listener));
 
             // Clic sur la card entière
-            itemView.setOnClickListener(v -> {
-                Context context = itemView.getContext();
-                Intent intent = new Intent(context, DetailActivity.class);
+            itemView.setOnClickListener(v -> openDetail(itemView.getContext(), jobOffer, listener));
+        }
 
-                intent.putExtra("job_title", jobOffer.getTitle());
-                intent.putExtra("job_company", jobOffer.getCompany());
-                intent.putExtra("job_id", jobOffer.getId());
-
-                context.startActivity(intent);
-
-                if (listener != null) {
-                    listener.onJobClick(jobOffer);
-                }
-            });
+        private void openDetail(Context context, JobOffer jobOffer, OnJobClickListener listener) {
+            Intent intent = new Intent(context, DetailActivity.class);
+            intent.putExtra("job_id",       jobOffer.getId());
+            intent.putExtra("job_title",    jobOffer.getTitle());
+            intent.putExtra("job_company",  jobOffer.getCompany());
+            intent.putExtra("job_location", jobOffer.getLocation());
+            context.startActivity(intent);
+            if (listener != null) listener.onJobClick(jobOffer);
         }
     }
 }
