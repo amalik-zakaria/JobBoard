@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,11 +21,12 @@ import java.util.List;
 
 public class CandidaturesFragment extends Fragment {
 
-    private RecyclerView recyclerView;
-    private LinearLayout emptyView;
-    private TextView countTextView;
-    private ApplicationAdapter adapter;
-    private DatabaseHelper dbHelper;
+    private RecyclerView         recyclerView;
+    private LinearLayout         emptyView;
+    private TextView             countTextView;
+    private ApplicationAdapter   adapter;
+    private DatabaseHelper       dbHelper;
+    private List<Application>    applicationList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,29 +38,53 @@ public class CandidaturesFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView    = view.findViewById(R.id.recycler_view_candidatures);
-        emptyView       = view.findViewById(R.id.empty_view);
-        countTextView   = view.findViewById(R.id.candidatures_count);
+        recyclerView  = view.findViewById(R.id.recycler_view_candidatures);
+        emptyView     = view.findViewById(R.id.empty_view);
+        countTextView = view.findViewById(R.id.candidatures_count);
 
         dbHelper = DatabaseHelper.getInstance(requireContext());
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ApplicationAdapter(null);
+
+        // Initialiser l'adapter avec le listener de suppression
+        adapter = new ApplicationAdapter(null, (application, position) ->
+                deleteApplication(application, position));
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        // Rechargé à chaque fois que l'onglet devient visible
         loadApplications();
     }
 
+    // ── Charger les candidatures depuis SQLite ────────────────────────────────
     private void loadApplications() {
-        List<Application> applications = dbHelper.getAllApplications();
-        adapter.setApplications(applications);
+        applicationList = dbHelper.getAllApplications();
+        adapter.setApplications(applicationList);
+        refreshUI();
+    }
 
-        int count = applications.size();
+    // ── Supprimer une candidature ─────────────────────────────────────────────
+    private void deleteApplication(Application application, int position) {
+        int deleted = dbHelper.deleteApplication(application.getId());
+
+        if (deleted > 0) {
+            // Retirer de la liste et animer la suppression dans le RecyclerView
+            adapter.removeItem(position);
+            refreshUI();
+            Toast.makeText(requireContext(),
+                    "\"" + application.getJobTitle() + "\" supprimée.",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(requireContext(),
+                    "Erreur lors de la suppression.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // ── Mettre à jour compteur + vue vide ─────────────────────────────────────
+    private void refreshUI() {
+        int count = adapter.getItemCount();
         countTextView.setText(count + " candidature" + (count > 1 ? "s" : ""));
 
         if (count == 0) {
@@ -70,4 +96,3 @@ public class CandidaturesFragment extends Fragment {
         }
     }
 }
-

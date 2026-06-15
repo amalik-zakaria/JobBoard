@@ -126,6 +126,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    // ─── DELETE ────────────────────────────────────────────────────────────────
+
+    /**
+     * Supprime une candidature par son ID de ligne (primary key).
+     * @return le nombre de lignes supprimées (1 si succès, 0 sinon).
+     */
+    public int deleteApplication(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        int rows = db.delete(
+                TABLE_APPLICATIONS,
+                COL_ID + " = ?",
+                new String[]{String.valueOf(id)}
+        );
+        db.close();
+        return rows;
+    }
+
     // ─── HELPERS ───────────────────────────────────────────────────────────────
 
     /**

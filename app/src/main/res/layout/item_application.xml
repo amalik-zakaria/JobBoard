@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="4dp"
-    app:cardBackgroundColor="@android:color/white">
+    app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +13,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Titre + Badge statut -->
+        <!-- Ligne 1 : Titre + Badge statut + Corbeille -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,6 +21,7 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="10dp">
 
+            <!-- Titre -->
             <TextView
                 android:id="@+id/application_title"
                 android:layout_width="0dp"
@@ -35,6 +35,7 @@
                 android:ellipsize="end"
                 android:layout_marginEnd="8dp" />
 
+            <!-- Badge statut -->
             <TextView
                 android:id="@+id/application_status"
                 android:layout_width="wrap_content"
@@ -43,7 +44,19 @@
                 android:textSize="12sp"
                 android:textColor="#FF9800"
                 android:textStyle="bold"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/badge_waiting" />
+
+            <!-- Bouton Supprimer (corbeille) -->
+            <ImageButton
+                android:id="@+id/delete_button"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@android:drawable/ic_menu_delete"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:tint="#E53935"
+                android:contentDescription="Supprimer la candidature"
+                android:padding="4dp" />
 
         </LinearLayout>
 
