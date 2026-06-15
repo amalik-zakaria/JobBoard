@@ -8,12 +8,74 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <!-- ╔══════════════════════════════════════════════════════════════╗ -->
+    <!-- ║  HEADER  — Bloc stylisé "Job\nBoard"                        ║ -->
+    <!-- ╚══════════════════════════════════════════════════════════════╝ -->
+    <LinearLayout
+        android:id="@+id/app_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="14dp"
+        android:background="@drawable/header_gradient"
+        android:elevation="4dp">
+
+        <!-- Bloc texte Job / Board -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- "Job" en très gras -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Job"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:letterSpacing="0.05"
+                android:lineSpacingMultiplier="0.9"
+                android:fontFamily="sans-serif-condensed-medium" />
+
+            <!-- "Board" avec accent coloré -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Board"
+                android:textSize="17sp"
+                android:textStyle="normal"
+                android:textColor="@color/jb_accent"
+                android:letterSpacing="0.15"
+                android:fontFamily="sans-serif-light" />
+
+        </LinearLayout>
+
+        <!-- Tagline à droite -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trouvez votre\nprochain emploi"
+            android:textSize="11sp"
+            android:textColor="#B3E5FC"
+            android:gravity="end"
+            android:lineSpacingMultiplier="1.3"
+            android:fontFamily="sans-serif-light" />
+
+    </LinearLayout>
+
+    <!-- Fragment container -->
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
+    <!-- BottomNavigationView -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"

@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- JobBoard brand colors -->
+    <color name="jb_primary">#1565C0</color>
+    <color name="jb_primary_dark">#0D47A1</color>
+    <color name="jb_accent">#40C4FF</color>
+    <color name="jb_header_gradient_start">#1565C0</color>
+    <color name="jb_header_gradient_end">#0D47A1</color>
 </resources>
