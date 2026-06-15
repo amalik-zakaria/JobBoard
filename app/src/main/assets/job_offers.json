@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Développeur Fullstack Java / Angular",
+    "company": "CapGemini Engineering",
+    "location": "Paris, Île-de-France",
+    "description": "Vous intégrerez une équipe agile de 8 personnes pour concevoir et développer des API REST robustes en Spring Boot ainsi que des interfaces dynamiques en Angular 17. Vos missions incluent la modélisation de bases de données PostgreSQL, la rédaction de tests unitaires avec JUnit 5, et la participation aux cérémonies Scrum (sprint planning, daily stand-up, retrospective). Vous travaillerez en collaboration étroite avec les équipes DevOps pour l'intégration continue via GitLab CI/CD et Docker."
+  },
+  {
+    "id": 2,
+    "title": "Data Scientist – Machine Learning",
+    "company": "BNP Paribas",
+    "location": "Lyon, Auvergne-Rhône-Alpes",
+    "description": "Au sein de la direction digitale de BNP Paribas, vous analyserez de larges volumes de données financières afin de construire des modèles prédictifs de scoring de crédit et de détection de fraude. Vous maîtriserez Python (scikit-learn, TensorFlow, Pandas) et exploiterez des pipelines de données sur Azure ML et Databricks. Vous communiquerez vos résultats à des équipes non techniques via des tableaux de bord Power BI et des rapports synthétiques."
+  },
+  {
+    "id": 3,
+    "title": "Ingénieur DevOps / Cloud AWS",
+    "company": "Thales Group",
+    "location": "Toulouse, Occitanie",
+    "description": "Vous serez responsable de la conception, du déploiement et de la supervision de l'infrastructure cloud de plusieurs produits embarqués critiques sur AWS (EC2, S3, Lambda, RDS). Vous automatiserez les pipelines CI/CD avec Jenkins et Terraform, et assurerez la sécurité des environnements via des audits réguliers et la gestion des secrets avec HashiCorp Vault. Le poste requiert une expérience solide en conteneurisation (Docker, Kubernetes) et une sensibilité aux contraintes de disponibilité (SLA 99,9 %)."
+  },
+  {
+    "id": 4,
+    "title": "Développeur Mobile Android / Kotlin",
+    "company": "Decathlon Digital",
+    "location": "Villeneuve-d'Ascq, Hauts-de-France",
+    "description": "Vous rejoindrez l'équipe Mobile de Decathlon pour développer et maintenir l'application grand public (5 millions d'utilisateurs actifs) en Kotlin avec une architecture MVVM et Jetpack Compose. Vous participerez à la définition des user stories avec les Product Owners, réaliserez les revues de code, et améliorerez les performances (réduction du temps de lancement de 30 %). Une expérience avec les tests instrumentés Espresso et la publication sur le Google Play Store est souhaitée."
+  },
+  {
+    "id": 5,
+    "title": "Architecte Logiciel Microservices",
+    "company": "Airbus CyberSecurity",
+    "location": "Bordeaux, Nouvelle-Aquitaine",
+    "description": "En tant qu'architecte logiciel, vous définirez les patterns d'architecture microservices pour des systèmes de surveillance cybersécurité à haute disponibilité, en vous appuyant sur Kafka, Spring Cloud Gateway et Istio. Vous rédigerez les dossiers d'architecture (DAT, DAE), accompagnerez les équipes de développement dans l'application des bonnes pratiques (DDD, CQRS, Event Sourcing) et animerez des ateliers techniques. Ce poste requiert une habilitation de sécurité de niveau Confidentiel Défense."
+  }
+]
+

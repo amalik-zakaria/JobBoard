@@ -17,8 +17,13 @@ import com.example.jobboard.adapters.JobAdapter;
 import com.example.jobboard.api.JobApiService;
 import com.example.jobboard.api.RetrofitClient;
 import com.example.jobboard.models.JobOffer;
-import com.example.jobboard.models.Post;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,69 +55,74 @@ public class OffresFragment extends Fragment {
 
         jobOffers = new ArrayList<>();
 
-        // Configurer RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        jobAdapter = new JobAdapter(jobOffers, jobOffer -> {
-            // Gérer le clic sur une offre
-            Toast.makeText(getContext(), "Offre: " + jobOffer.getTitle(), Toast.LENGTH_SHORT).show();
-        });
+        jobAdapter = new JobAdapter(jobOffers, jobOffer ->
+                Toast.makeText(getContext(), jobOffer.getTitle(), Toast.LENGTH_SHORT).show());
         recyclerView.setAdapter(jobAdapter);
 
-        // Charger les offres depuis l'API
         fetchJobOffers();
     }
 
+    // ── Appel Retrofit ───────────────────────────────────────────────────────
     private void fetchJobOffers() {
         progressBar.setVisibility(View.VISIBLE);
         errorTextView.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
 
         JobApiService apiService = RetrofitClient.getApiService();
-        Call<List<Post>> call = apiService.getJobOffers();
+        Call<List<JobOffer>> call = apiService.getJobOffers();
 
-        call.enqueue(new Callback<List<Post>>() {
+        call.enqueue(new Callback<List<JobOffer>>() {
             @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+            public void onResponse(Call<List<JobOffer>> call, Response<List<JobOffer>> response) {
                 progressBar.setVisibility(View.GONE);
-
-                if (response.isSuccessful() && response.body() != null) {
-                    jobOffers.clear();
-
-                    // Convertir les Posts de l'API en JobOffer
-                    List<Post> posts = response.body();
-                    for (int i = 0; i < Math.min(10, posts.size()); i++) {
-                        Post post = posts.get(i);
-
-                        // Créer une JobOffer à partir du Post
-                        JobOffer jobOffer = new JobOffer();
-                        jobOffer.setId(post.getId());
-                        jobOffer.setTitle(post.getTitle());
-                        jobOffer.setCompany("Tech Company " + post.getUserId());
-                        jobOffer.setLocation("Ville " + (post.getId() % 5 + 1));
-
-                        jobOffers.add(jobOffer);
-                    }
-
-                    jobAdapter.setJobOffers(jobOffers);
-                    recyclerView.setVisibility(View.VISIBLE);
+                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
+                    updateList(response.body());
                 } else {
-                    showError("Erreur: " + response.code());
+                    // Fallback sur le JSON local si l'API répond mais est vide/invalide
+                    loadFromAssets();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
+            public void onFailure(Call<List<JobOffer>> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
-                showError("Erreur réseau: " + t.getMessage());
+                // Fallback sur le JSON local en cas d'erreur réseau
+                loadFromAssets();
             }
         });
+    }
+
+    // ── Fallback : lire job_offers.json depuis les assets ────────────────────
+    private void loadFromAssets() {
+        try {
+            InputStream is = requireContext().getAssets().open("job_offers.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            //noinspection ResultOfMethodCallIgnored
+            is.read(buffer);
+            is.close();
+            String json = new String(buffer, StandardCharsets.UTF_8);
+
+            Type listType = new TypeToken<List<JobOffer>>() {}.getType();
+            List<JobOffer> localOffers = new Gson().fromJson(json, listType);
+            updateList(localOffers);
+        } catch (IOException e) {
+            showError("Impossible de charger les offres.");
+        }
+    }
+
+    // ── Mise à jour du RecyclerView ──────────────────────────────────────────
+    private void updateList(List<JobOffer> offers) {
+        jobOffers.clear();
+        jobOffers.addAll(offers);
+        jobAdapter.setJobOffers(jobOffers);
+        recyclerView.setVisibility(View.VISIBLE);
     }
 
     private void showError(String message) {
         errorTextView.setText(message);
         errorTextView.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
-

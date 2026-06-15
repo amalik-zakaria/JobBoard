@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,14 +42,18 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
     // ── Views ────────────────────────────────────────────────────────────────
     private TextView  titleTextView;
+    private TextView  descriptionTextView;
+    private TextView  descriptionLabel;
+    private View      descriptionDivider;
     private Button    applyButton, photoCvButton, callButton, smsButton, backButton;
     private ImageView cvImageView;
 
     // ── Data ─────────────────────────────────────────────────────────────────
-    private int    jobId       = -1;
-    private String jobTitle    = "";
-    private String jobCompany  = "";
-    private String jobLocation = "";
+    private int    jobId          = -1;
+    private String jobTitle       = "";
+    private String jobCompany     = "";
+    private String jobLocation    = "";
+    private String jobDescription = "";
 
     // ── Helpers ──────────────────────────────────────────────────────────────
     private DatabaseHelper dbHelper;
@@ -79,25 +84,41 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         setContentView(R.layout.activity_detail);
 
         // Vues
-        titleTextView = findViewById(R.id.detail_title);
-        applyButton   = findViewById(R.id.apply_button);
-        photoCvButton = findViewById(R.id.photo_cv_button);
-        callButton    = findViewById(R.id.call_button);
-        smsButton     = findViewById(R.id.sms_button);
-        backButton    = findViewById(R.id.back_button);
-        cvImageView   = findViewById(R.id.cv_image_view);
+        titleTextView       = findViewById(R.id.detail_title);
+        descriptionTextView = findViewById(R.id.detail_description);
+        descriptionLabel    = findViewById(R.id.description_label);
+        descriptionDivider  = findViewById(R.id.description_divider);
+        applyButton         = findViewById(R.id.apply_button);
+        photoCvButton       = findViewById(R.id.photo_cv_button);
+        callButton          = findViewById(R.id.call_button);
+        smsButton           = findViewById(R.id.sms_button);
+        backButton          = findViewById(R.id.back_button);
+        cvImageView         = findViewById(R.id.cv_image_view);
 
         dbHelper = DatabaseHelper.getInstance(this);
 
         // ── Intent ──────────────────────────────────────────────────────────
         Intent intent = getIntent();
-        jobId       = intent.getIntExtra("job_id", -1);
-        jobTitle    = intent.getStringExtra("job_title")    != null ? intent.getStringExtra("job_title")    : "Offre";
-        jobCompany  = intent.getStringExtra("job_company")  != null ? intent.getStringExtra("job_company")  : "N/A";
-        jobLocation = intent.getStringExtra("job_location") != null ? intent.getStringExtra("job_location") : "N/A";
+        jobId          = intent.getIntExtra("job_id", -1);
+        jobTitle       = intent.getStringExtra("job_title")       != null ? intent.getStringExtra("job_title")       : "Offre";
+        jobCompany     = intent.getStringExtra("job_company")     != null ? intent.getStringExtra("job_company")     : "N/A";
+        jobLocation    = intent.getStringExtra("job_location")    != null ? intent.getStringExtra("job_location")    : "N/A";
+        jobDescription = intent.getStringExtra("job_description") != null ? intent.getStringExtra("job_description") : "";
 
         titleTextView.setText(jobTitle);
         updateApplyButton();
+
+        // ── Affichage conditionnel de la description ─────────────────────────
+        if (jobDescription != null && !jobDescription.trim().isEmpty()) {
+            descriptionTextView.setText(jobDescription);
+            descriptionTextView.setVisibility(View.VISIBLE);
+            descriptionLabel.setVisibility(View.VISIBLE);
+            descriptionDivider.setVisibility(View.VISIBLE);
+        } else {
+            descriptionTextView.setVisibility(View.GONE);
+            descriptionLabel.setVisibility(View.GONE);
+            descriptionDivider.setVisibility(View.GONE);
+        }
 
         // ── Carte ──────────────────────────────────────────────────────────
         SupportMapFragment mapFragment =

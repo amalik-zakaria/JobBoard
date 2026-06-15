@@ -15,14 +15,18 @@ public class JobOffer {
     @SerializedName("location")
     private String location;
 
+    @SerializedName("description")
+    private String description;
+
     public JobOffer() {
     }
 
-    public JobOffer(int id, String title, String company, String location) {
+    public JobOffer(int id, String title, String company, String location, String description) {
         this.id = id;
         this.title = title;
         this.company = company;
         this.location = location;
+        this.description = description;
     }
 
     // Getters and Setters
@@ -58,6 +62,14 @@ public class JobOffer {
         this.location = location;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "JobOffer{" +
@@ -65,7 +77,7 @@ public class JobOffer {
                 ", title='" + title + '\'' +
                 ", company='" + company + '\'' +
                 ", location='" + location + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }
-

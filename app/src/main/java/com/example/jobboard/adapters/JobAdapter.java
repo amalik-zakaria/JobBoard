@@ -26,14 +26,11 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         void onJobClick(JobOffer jobOffer);
     }
 
-    public JobAdapter(List<JobOffer> jobOffers, OnJobClickListener onJobClickListener) {
+    public JobAdapter(List<JobOffer> jobOffers, OnJobClickListener listener) {
         this.jobOffers = jobOffers;
-        this.onJobClickListener = onJobClickListener;
+        this.onJobClickListener = listener;
     }
 
-    /**
-     * Met à jour la liste des offres
-     */
     public void setJobOffers(List<JobOffer> jobOffers) {
         this.jobOffers = jobOffers;
         notifyDataSetChanged();
@@ -49,8 +46,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull JobViewHolder holder, int position) {
-        JobOffer jobOffer = jobOffers.get(position);
-        holder.bind(jobOffer, onJobClickListener);
+        holder.bind(jobOffers.get(position), onJobClickListener);
     }
 
     @Override
@@ -58,44 +54,52 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         return jobOffers != null ? jobOffers.size() : 0;
     }
 
-    /**
-     * ViewHolder pour une offre d'emploi
-     */
+    // ── ViewHolder ───────────────────────────────────────────────────────────
     public static class JobViewHolder extends RecyclerView.ViewHolder {
-        private TextView titleTextView;
-        private TextView companyTextView;
-        private TextView locationTextView;
-        private Button detailsButton;
+        private final TextView titleTextView;
+        private final TextView companyTextView;
+        private final TextView locationTextView;
+        private final TextView descriptionPreview;
+        private final Button   detailsButton;
 
         public JobViewHolder(@NonNull View itemView) {
             super(itemView);
-            titleTextView = itemView.findViewById(R.id.job_title);
-            companyTextView = itemView.findViewById(R.id.job_company);
-            locationTextView = itemView.findViewById(R.id.job_location);
-            detailsButton = itemView.findViewById(R.id.details_button);
+            titleTextView      = itemView.findViewById(R.id.job_title);
+            companyTextView    = itemView.findViewById(R.id.job_company);
+            locationTextView   = itemView.findViewById(R.id.job_location);
+            descriptionPreview = itemView.findViewById(R.id.job_description_preview);
+            detailsButton      = itemView.findViewById(R.id.details_button);
         }
 
         public void bind(JobOffer jobOffer, OnJobClickListener listener) {
             titleTextView.setText(jobOffer.getTitle());
-            companyTextView.setText("Entreprise: " + jobOffer.getCompany());
-            locationTextView.setText("Localisation: " + jobOffer.getLocation());
+            companyTextView.setText("🏢 " + jobOffer.getCompany());
+            locationTextView.setText("📍 " + jobOffer.getLocation());
 
-            // Intent explicite pour ouvrir DetailActivity via le bouton
-            detailsButton.setOnClickListener(v -> openDetail(itemView.getContext(), jobOffer, listener));
+            String desc = jobOffer.getDescription();
+            if (desc != null && !desc.isEmpty()) {
+                descriptionPreview.setText(desc);
+                descriptionPreview.setVisibility(View.VISIBLE);
+            } else {
+                descriptionPreview.setVisibility(View.GONE);
+            }
 
-            // Clic sur la card entière
-            itemView.setOnClickListener(v -> openDetail(itemView.getContext(), jobOffer, listener));
+            detailsButton.setOnClickListener(v ->
+                    openDetail(itemView.getContext(), jobOffer, listener));
+            itemView.setOnClickListener(v ->
+                    openDetail(itemView.getContext(), jobOffer, listener));
         }
 
         private void openDetail(Context context, JobOffer jobOffer, OnJobClickListener listener) {
             Intent intent = new Intent(context, DetailActivity.class);
-            intent.putExtra("job_id",       jobOffer.getId());
-            intent.putExtra("job_title",    jobOffer.getTitle());
-            intent.putExtra("job_company",  jobOffer.getCompany());
-            intent.putExtra("job_location", jobOffer.getLocation());
+            intent.putExtra("job_id",          jobOffer.getId());
+            intent.putExtra("job_title",       jobOffer.getTitle());
+            intent.putExtra("job_company",     jobOffer.getCompany());
+            intent.putExtra("job_location",    jobOffer.getLocation());
+            intent.putExtra("job_description", jobOffer.getDescription() != null
+                                               ? jobOffer.getDescription() : "");
             context.startActivity(intent);
             if (listener != null) listener.onJobClick(jobOffer);
         }
     }
 }
-

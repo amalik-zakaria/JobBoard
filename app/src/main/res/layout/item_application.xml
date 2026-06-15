@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:text="🏢 Entreprise"
             android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="?android:attr/textColorPrimary"
             android:layout_marginBottom="4dp" />
 
         <!-- Localisation -->
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:text="📍 Localisation"
             android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="?android:attr/textColorSecondary"
             android:layout_marginBottom="6dp" />
 
         <View
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:text="📅 Postulé le : --"
             android:textSize="12sp"
-            android:textColor="#9E9E9E" />
+            android:textColor="?android:attr/textColorSecondary" />
 
     </LinearLayout>
 
