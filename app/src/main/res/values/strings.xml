@@ -3,6 +3,8 @@
     <string name="nav_offres">Offres</string>
     <string name="nav_candidatures">Candidatures</string>
     <string name="nav_preferences">Préférences</string>
-    <string name="search_keyword_hint">Mot-clé de recherche</string>
+    <string name="search_keyword_hint">Ex: Java, Android, Data...</string>
     <string name="save_button">Sauvegarder</string>
+    <string name="add_keyword_button">Ajouter</string>
+    <string name="clear_all_button">Tout effacer</string>
 </resources>
