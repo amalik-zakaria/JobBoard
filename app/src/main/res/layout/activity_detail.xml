@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,12 +10,16 @@
 
     <!-- ── Toolbar ─────────────────────────────────────────────────── -->
     <LinearLayout
+        android:id="@+id/detail_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="8dp"
+        android:minHeight="56dp"
         android:background="#1976D2">
 
         <Button

@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -82,6 +84,19 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        // ── Edge-to-Edge : décaler la Toolbar sous la status bar ─────────────
+        android.view.ViewGroup toolbar = findViewById(R.id.detail_toolbar);
+        ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, insets) -> {
+            int topInset = insets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+            v.setPadding(
+                v.getPaddingLeft(),
+                topInset,                // padding top = hauteur status bar
+                v.getPaddingRight(),
+                v.getPaddingBottom()
+            );
+            return insets;
+        });
 
         // Vues
         titleTextView       = findViewById(R.id.detail_title);
